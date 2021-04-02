@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 
 namespace RazorCrud
 {
@@ -24,6 +25,15 @@ namespace RazorCrud
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+
+            services.AddDbContext<RazorCrudSongsListContext>(options =>
+                    options.UseSqlite(Configuration.GetConnectionString("RazorCrudSongsListContext")));
+
+            services.AddDbContext<RazorCrudArtistsListContext>(options =>
+                    options.UseSqlite(Configuration.GetConnectionString("RazorCrudArtistsListContext")));
+
+            services.AddDbContext<RazorCrudAlbumsContext>(options =>
+                    options.UseSqlite(Configuration.GetConnectionString("RazorCrudAlbumsContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
